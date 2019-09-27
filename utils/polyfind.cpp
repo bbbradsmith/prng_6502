@@ -9,6 +9,9 @@
 #include <cstdint>
 typedef uint32_t uint32;
 
+// for catching some short cycles that don't return to 1,
+// coverage is limited by the size of VISIT_MAX,
+// but this is just a heuristic to accelerate rejection.
 const int VISIT_MAX = 1024;
 bool visited[VISIT_MAX];
 
