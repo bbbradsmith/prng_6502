@@ -58,17 +58,14 @@ galois24u:
 	rts
 
 ; overlapped
-; 84 cycles
-; 45 bytes
+; 73 cycles
+; 38 bytes
 
 galois24o:
-	; shift everything 1 byte left
-	lda seed+2
-	ldx seed+1
-	stx seed+2
-	ldx seed+0 ; X = original low byte
-	sta seed+0 ; seed+0 = original high byte
+	; rotate the middle byte left
+	ldx seed+1 ; will move to seed+2 at the end
 	; compute seed+1 ($1B>>1 = %1101)
+	lda seed+2
 	lsr
 	lsr
 	lsr
@@ -79,19 +76,18 @@ galois24o:
 	eor seed+1
 	lsr
 	eor seed+1
-	sta seed+1
-	txa
-	eor seed+1
+	eor seed+0
 	sta seed+1
 	; compute seed+0 ($1B = %00011011)
-	lda seed+0
+	lda seed+2
 	asl
-	eor seed+0
+	eor seed+2
 	asl
 	asl
-	eor seed+0
+	eor seed+2
 	asl
-	eor seed+0
+	eor seed+2
+	stx seed+2 ; finish rotating byte 1 into 2
 	sta seed+0
 	rts
 

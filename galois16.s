@@ -57,14 +57,12 @@ galois16u:
 	rts
 
 ; overlapped version, computes all 8 iterations in an overlapping fashion
-; 76 cycles
-; 40 bytes
+; 69 cycles
+; 35 bytes
 
 galois16o:
-	; shift everything 1 byte left
 	lda seed+1
-	ldx seed+0 ; X = original low byte
-	sta seed+0 ; seed+0 = original high byte
+	tax ; store copy of high byte
 	; compute seed+1 ($39>>1 = %11100)
 	lsr ; shift to consume zeroes on left...
 	lsr
@@ -74,12 +72,11 @@ galois16o:
 	eor seed+1
 	lsr
 	eor seed+1
-	sta seed+1
-	txa ; recombine with original low byte
-	eor seed+1
+	eor seed+0 ; recombine with original low byte
 	sta seed+1
 	; compute seed+0 ($39 = %111001)
-	lda seed+0 ; original high byte
+	txa ; original high byte
+	sta seed+0
 	asl
 	eor seed+0
 	asl

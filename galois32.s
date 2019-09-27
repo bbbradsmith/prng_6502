@@ -57,19 +57,16 @@ galois32u:
 	rts
 
 ; overlapped
-; 94 cycles
-; 51 bytes
+; 83 cycles
+; 44 bytes
 
 galois32o:
-	; shift everything 1 byte left
-	lda seed+3
-	ldx seed+2
-	stx seed+3
-	ldx seed+1
-	stx seed+2
-	ldx seed+0 ; X = original low byte
-	sta seed+0 ; seed+0 = original high byte
+	; rotate the middle bytes left
+	ldx seed+2 ; will move to seed+3 at the end
+	lda seed+1
+	sta seed+2
 	; compute seed+1 ($C5>>1 = %1100010)
+	lda seed+3 ; original high byte
 	lsr
 	sta seed+1 ; reverse: 100011
 	lsr
@@ -79,22 +76,21 @@ galois32o:
 	eor seed+1
 	lsr
 	eor seed+1
-	sta seed+1
-	txa
-	eor seed+1
+	eor seed+0 ; combine with original low byte
 	sta seed+1
 	; compute seed+0 ($C5 = %11000101)
-	lda seed+0
+	lda seed+3 ; original high byte
 	asl
-	eor seed+0
-	asl
-	asl
+	eor seed+3
 	asl
 	asl
-	eor seed+0
 	asl
 	asl
-	eor seed+0
+	eor seed+3
+	asl
+	asl
+	eor seed+3
+	stx seed+3 ; finish rotating byte 2 into 3
 	sta seed+0
 	rts
 
