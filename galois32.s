@@ -65,25 +65,25 @@ galois32o:
 	stx seed+2
 	ldx seed+0 ; X = original low byte
 	sta seed+0 ; seed+0 = original high byte
-	; compute seed+1 ($C5>>1 = %1010010)
+	; compute seed+1 ($C5>>1 = %1100010)
 	lsr
-	sta seed+1 ; reverse: 100101
+	sta seed+1 ; reverse: 100011
+	lsr
 	lsr
 	lsr
 	lsr
 	eor seed+1
-	lsr
 	lsr
 	eor seed+1
 	sta seed+1
 	txa
 	eor seed+1
 	sta seed+1
-	; compute seed+0 ($C5 = %10100101)
+	; compute seed+0 ($C5 = %11000101)
 	lda seed+0
 	asl
-	asl
 	eor seed+0
+	asl
 	asl
 	asl
 	asl
