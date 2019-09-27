@@ -53,21 +53,20 @@ galois24u:
 
 galois24o:
 	; shift everything 1 byte left
-	ldx seed+0 ; X = original low byte
 	lda seed+2
+	ldx seed+1
+	stx seed+2
+	ldx seed+0 ; X = original low byte
 	sta seed+0 ; seed+0 = original high byte
-	lda seed+1
-	sta seed+2
 	; compute seed+1 ($1B>>1 = %0001101)
-	lda seed+0
 	lsr
 	lsr
 	lsr
 	lsr
 	sta seed+1
 	lsr
-	eor seed+1
 	lsr
+	eor seed+1
 	lsr
 	eor seed+1
 	sta seed+1

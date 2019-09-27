@@ -51,23 +51,21 @@ galois16u:
 
 galois16o:
 	; shift everything 1 byte left
-	ldx seed+0 ; X = original low byte
 	lda seed+1
+	ldx seed+0 ; X = original low byte
 	sta seed+0 ; seed+0 = original high byte
-	; compute seed+1 ($2D>>1 = %0010110)
+	; compute seed+1 ($2D>>1 = %10110)
+	lsr ; shift to consume zeroes on left...
 	lsr
 	lsr
+	sta seed+1 ; now recreate the remaining bits in reverse order... %1101
 	lsr
-	pha
-	lsr
-	lsr
-	sta seed+1
-	pla
 	eor seed+1
-	lsr seed+1
+	lsr
+	lsr
 	eor seed+1
 	sta seed+1
-	txa
+	txa ; recombine with original low byte
 	eor seed+1
 	sta seed+1
 	; compute seed+0 ($2D = %00101101)

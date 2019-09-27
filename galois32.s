@@ -55,7 +55,41 @@ galois32u:
 ; overlapped
 
 galois32o:
-	; TODO
+	; shift everything 1 byte left
+	lda seed+3
+	ldx seed+2
+	stx seed+3
+	ldx seed+1
+	stx seed+2
+	ldx seed+0 ; X = original low byte
+	sta seed+0 ; seed+0 = original high byte
+	; compute seed+1 ($C5>>1 = %1010010)
+	lsr
+	sta seed+1 ; reverse: 100101
+	lsr
+	lsr
+	lsr
+	eor seed+1
+	lsr
+	lsr
+	eor seed+1
+	sta seed+1
+	txa
+	eor seed+1
+	sta seed+1
+	; compute seed+0 ($C5 = %10100101)
+	lda seed+0
+	asl
+	asl
+	eor seed+0
+	asl
+	asl
+	asl
+	eor seed+0
+	asl
+	asl
+	eor seed+0
+	sta seed+0
 	rts
 
 ; C wrappers
