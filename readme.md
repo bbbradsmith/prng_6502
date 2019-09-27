@@ -1,6 +1,6 @@
 # prng_6502
 
-Random number generators for 6502 / NES
+Random number generators for 6502 / NES.
 
 ## Description
 
@@ -45,7 +45,6 @@ assembler, but should be easily portable to other 6502 assembly dialects.
 | galois16  | 16-bit | 19 bytes  | 133-141 (137) |
 | galois24  | 24-bit | 21 bytes  | 173-181 (177) |
 | galois32  | 32-bit | 23 bytes  | 213-221 (217) |
-| --------- | ------ | --------- | ------------- |
 | galois16o | 16-bit | 35 bytes  | 69            |
 | galois24o | 24-bit | 38 bytes  | 73            |
 | galois32o | 32-bit | 44 bytes  | 83            |
@@ -79,7 +78,7 @@ length LFSR, the ones selected here were chosen to have as few bits as necessary
 and in a compact arrangement that makes the computation faster.
 
 * **utils/polyfind.cpp** - A simple program to search for viable XOR-feedback values.
-* **utils/spectral.py** - A 2D spectral test for evaluating patterns.
+* **utils/spectral.py** - A 2D spectral test for detecting RNG fitness.
 * **test.c**/**.cfg**/**.bat** - A CC65 unit test for verifying the correctness of this program.
 
 ## License
