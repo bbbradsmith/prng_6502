@@ -14,7 +14,7 @@ an 8-bit pseudo-random number.
 
 Three widths of LFSR are provided:
 * 16-bit requires 2 bytes of state, and will repeat after 65535 numbers.
-* 24-bit require 3 bytes, and repeats after 16777215 calls.
+* 24-bit requires 3 bytes, and repeats after 16777215 calls.
 * 32-bit requires 4 bytes, and repeats after 4294967295 calls.
 
 The 16-bit version is a minimal suitable RNG for general purpose use,
