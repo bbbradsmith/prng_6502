@@ -21,7 +21,7 @@
 
 .code
 galois32:
-	ldx #8
+	ldy #8
 	lda seed+0
 :
 	asl
@@ -31,7 +31,7 @@ galois32:
 	bcc :+
 	eor #$C5
 :
-	dex
+	dey
 	bne :--
 	sta seed+0
 	cmp #0
@@ -62,7 +62,7 @@ galois32u:
 
 galois32o:
 	; rotate the middle bytes left
-	ldx seed+2 ; will move to seed+3 at the end
+	ldy seed+2 ; will move to seed+3 at the end
 	lda seed+1
 	sta seed+2
 	; compute seed+1 ($C5>>1 = %1100010)
@@ -90,7 +90,7 @@ galois32o:
 	asl
 	asl
 	eor seed+3
-	stx seed+3 ; finish rotating byte 2 into 3
+	sty seed+3 ; finish rotating byte 2 into 3
 	sta seed+0
 	rts
 

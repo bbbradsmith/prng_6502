@@ -25,7 +25,7 @@
 ; 19 bytes
 
 galois16:
-	ldx #8
+	ldy #8
 	lda seed+0
 :
 	asl        ; shift the register
@@ -33,7 +33,7 @@ galois16:
 	bcc :+
 	eor #$39   ; apply XOR feedback whenever a 1 bit is shifted out
 :
-	dex
+	dey
 	bne :--
 	sta seed+0
 	cmp #0     ; reload flags
@@ -62,7 +62,7 @@ galois16u:
 
 galois16o:
 	lda seed+1
-	tax ; store copy of high byte
+	tay ; store copy of high byte
 	; compute seed+1 ($39>>1 = %11100)
 	lsr ; shift to consume zeroes on left...
 	lsr
@@ -75,7 +75,7 @@ galois16o:
 	eor seed+0 ; recombine with original low byte
 	sta seed+1
 	; compute seed+0 ($39 = %111001)
-	txa ; original high byte
+	tya ; original high byte
 	sta seed+0
 	asl
 	eor seed+0

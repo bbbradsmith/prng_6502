@@ -24,7 +24,7 @@
 ; 21 bytes
 
 galois24:
-	ldx #8
+	ldy #8
 	lda seed+0
 :
 	asl
@@ -33,7 +33,7 @@ galois24:
 	bcc :+
 	eor #$1B
 :
-	dex
+	dey
 	bne :--
 	sta seed+0
 	cmp #0
@@ -63,7 +63,7 @@ galois24u:
 
 galois24o:
 	; rotate the middle byte left
-	ldx seed+1 ; will move to seed+2 at the end
+	ldy seed+1 ; will move to seed+2 at the end
 	; compute seed+1 ($1B>>1 = %1101)
 	lda seed+2
 	lsr
@@ -87,7 +87,7 @@ galois24o:
 	eor seed+2
 	asl
 	eor seed+2
-	stx seed+2 ; finish rotating byte 1 into 2
+	sty seed+2 ; finish rotating byte 1 into 2
 	sta seed+0
 	rts
 
