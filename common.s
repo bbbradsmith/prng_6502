@@ -1,5 +1,6 @@
 ;
 ; Common code for RNG tests
+; http://rainwarrior.ca
 ;
 
 .zeropage
