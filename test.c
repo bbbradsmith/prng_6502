@@ -1,3 +1,15 @@
+//
+// CC65 Sim65 RNG test suite
+// http://rainwarrior.ca
+//
+
+// This is not a thorough random number generator test suite.
+// It is merely a unit test for verifying that the code is correct,
+// using a couple of brute-force methods to compare.
+//
+// The main goal of this test is to make sure that the (complicated) overlapped
+// LFSR implemtations match the simple versions.
+
 #include <stdint.h>
 #include <stdio.h>
 
@@ -49,10 +61,10 @@ uint32 counter[256];
 		k = seed; \
 		seed = j; \
 		q = func1(); \
-		if (seed != k) { printf(#func0 "/" #func1 ": mismatch at %ld\n",k); return -1; } \
-		if (p != q)    { printf(#func0 "/" #func1 ": 8-bit mismatch at %ld\n",j); return -1; } \
+		if (seed != k) { printf("%-10s = %-10s: mismatch at %lu\n",      #func0,#func1,k); return -1; } \
+		if (p != q)    { printf("%-10s = %-10s: 8-bit mismatch at %lu\n",#func0,#func1,j); return -1; } \
 	} \
-	                     printf(#func0 "/" #func1 ": match\n"); \
+	                     printf("%-10s = %-10s: match (%lu)\n",#func0,#func1,cycles##UL); \
 }
 
 #define CYCLE_TEST(func,cycles) \
@@ -62,9 +74,9 @@ uint32 counter[256];
 	{ \
 		func(); if (seed==1) break; \
 	} \
-	if (i==cycles##UL)            printf(#func ": %ld\n",(i+1)); \
-	else if (i>=(cycles##UL+1)) { printf(#func ": FAIL\n");      return -1; } \
-	else                        { printf(#func ": %ld\n",(i+1)); return -1; } \
+	if (i==cycles##UL)            printf("%-10s: %lu\n",#func,(i+1)); \
+	else if (i>=(cycles##UL+1)) { printf("%-10s: FAIL\n",#func);       return -1; } \
+	else                        { printf("%-10s: %lu\n",#func,(i+1)); return -1; } \
 }
 
 #define DISTRIBUTION_TEST(func,cycles) \
@@ -78,31 +90,43 @@ uint32 counter[256];
 		if (counter[i] > j) j = counter[i]; \
 		if (counter[i] < k) k = counter[i]; \
 	} \
-	printf(#func ": min %ld - %ld max (%ld tests)\n",k,j,cycles); \
+	printf("%-10s: min %5lu - %5lu max (%lu)\n",#func,k,j,cycles##UL); \
 }
 
-int main()
+int tests()
 {
 	printf("Equivalence tests.\n");
-	MATCH_TEST(galois16,galois16u,65535);
-	MATCH_TEST(galois16u,galois16o,65535);
-	MATCH_TEST(galois24,galois24u,16777215);
+	MATCH_TEST(galois16 ,galois16u,65535); // verify that unrolled matches simple
+	MATCH_TEST(galois16u,galois16o,65535); // verify that overlapped matches unrolled
+	MATCH_TEST(galois24 ,galois24u,16777215);
 	MATCH_TEST(galois24u,galois24o,16777215);
-	MATCH_TEST(galois32,galois32u,17000000);
+	MATCH_TEST(galois32 ,galois32u,17000000); // an incomplete cycle, but still a pretty good verification
 	MATCH_TEST(galois32u,galois32o,17000000);
-	//MATCH_TEST(galois32,galois32u,4294967295);
-	MATCH_TEST(galois32,galois32o,4294967295);
+	//MATCH_TEST(galois32 ,galois32u,4294967295); // these take several hours to complete
+	//MATCH_TEST(galois32 ,galois32o,4294967295);
 
 	printf("Cycle tests.\n");
 	CYCLE_TEST(galois16o,65534);
 	CYCLE_TEST(galois24o,16777214);
-	CYCLE_TEST(galois32o,4294967294);
+	//CYCLE_TEST(galois32o,4294967294); // several hours
 
+	// maximal cycle automatically ensures even distribution,
+	// but these will demonstrate uniformity with shorter cycles.
 	printf("Distribution tests.\n");
-	DISTRIBUTION_TEST(galois16o,65535);
-	DISTRIBUTION_TEST(galois24o,16777215);
-	DISTRIBUTION_TEST(galois32o,4294967295);
+	DISTRIBUTION_TEST(galois16o,25600);
+	DISTRIBUTION_TEST(galois24o,2560000);
+	DISTRIBUTION_TEST(galois32o,2560000);
 
-	printf("Complete.\n");
+	return 0; // success
+}
+
+int main()
+{
+	if (tests())
+	{
+		printf("Failed.\n");
+		return -1;
+	}
+	printf("Success.\n");
 	return 0;
 }
