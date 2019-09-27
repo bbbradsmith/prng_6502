@@ -58,12 +58,12 @@ galois24o:
 	stx seed+2
 	ldx seed+0 ; X = original low byte
 	sta seed+0 ; seed+0 = original high byte
-	; compute seed+1 ($1B>>1 = %0001101)
+	; compute seed+1 ($1B>>1 = %1101)
 	lsr
 	lsr
 	lsr
 	lsr
-	sta seed+1
+	sta seed+1 ; reverse: %1011
 	lsr
 	lsr
 	eor seed+1
