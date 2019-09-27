@@ -5,7 +5,16 @@
 ;
 
 ; A 16-bit Galois LFSR
-; $2D is the lowest feedback value that generates a full 65535 step sequence
+
+; Possible feedback values that generates a full 65535 step sequence:
+; $2D = %00101101
+; $39 = %00111001
+; $3F = %00111111
+; $53 = %01010011
+; $BD = %10111101
+; $D7 = %11010111
+
+; $39 is chosen for its compact bit pattern
 
 .importzp seed
 
@@ -22,7 +31,7 @@ galois16:
 	asl        ; shift the register
 	rol seed+1
 	bcc :+
-	eor #$2D   ; apply XOR feedback whenever a 1 bit is shifted out
+	eor #$39   ; apply XOR feedback whenever a 1 bit is shifted out
 :
 	dex
 	bne :--
@@ -40,7 +49,7 @@ galois16u:
 		asl
 		rol seed+1
 		bcc :+
-			eor #$2D
+			eor #$39
 		:
 	.endrepeat
 	sta seed+0
@@ -56,27 +65,26 @@ galois16o:
 	lda seed+1
 	ldx seed+0 ; X = original low byte
 	sta seed+0 ; seed+0 = original high byte
-	; compute seed+1 ($2D>>1 = %10110)
+	; compute seed+1 ($39>>1 = %11100)
 	lsr ; shift to consume zeroes on left...
 	lsr
 	lsr
-	sta seed+1 ; now recreate the remaining bits in reverse order... %1101
+	sta seed+1 ; now recreate the remaining bits in reverse order... %111
 	lsr
 	eor seed+1
-	lsr
 	lsr
 	eor seed+1
 	sta seed+1
 	txa ; recombine with original low byte
 	eor seed+1
 	sta seed+1
-	; compute seed+0 ($2D = %00101101)
+	; compute seed+0 ($39 = %111001)
 	lda seed+0 ; original high byte
 	asl
-	asl
 	eor seed+0
 	asl
 	eor seed+0
+	asl
 	asl
 	asl
 	eor seed+0
