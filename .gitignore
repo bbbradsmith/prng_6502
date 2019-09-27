@@ -1,3 +1,4 @@
 cc65/
 output/
 utils/polyfind.exe
+utils/*.png
