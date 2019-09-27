@@ -53,6 +53,8 @@ galois32u:
 	rts
 
 ; overlapped
+; 94 cycles
+; 51 bytes
 
 galois32o:
 	; shift everything 1 byte left
