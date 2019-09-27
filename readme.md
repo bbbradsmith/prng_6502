@@ -77,6 +77,9 @@ Though there are generally many XOR-feedback values that can generate a maximal
 length LFSR, the ones selected here were chosen to have as few bits as necessary,
 and in a compact arrangement that makes the computation faster.
 
+* **galois16.s** - 16-bit RNG implementations.
+* **galois24.s** - 24-bit RNG implementations.
+* **galois32.s** - 32-bit RNG implementations.
 * **utils/polyfind.cpp** - A simple program to search for viable XOR-feedback values.
 * **utils/spectral.py** - A 2D spectral test for detecting RNG fitness.
 * **test.c**/**.cfg**/**.bat** - A CC65 unit test for verifying the correctness of this program.
