@@ -8,7 +8,7 @@ This is a small collection of a family of random number generators
 suitable for use with the NES or other 6502 CPU platforms.
 
 Each of them implements a
-[linear feedback shift register](https://en.wikipedia.org/wiki/Linear-feedback_shift_register)
+[linear feedback shift register](http://en.wikipedia.org/wiki/Linear-feedback_shift_register)
 (LFSR) in Galois form, which is iterated 8 times to produce
 an 8-bit pseudo-random number.
 
@@ -58,6 +58,15 @@ The overlapped versions are slightly larger, but more than twice as fast.
 
 In the source there are also unrolled-loop versions included for comparison,
 but these are all larger and slower than their overlapped counterparts.
+
+Though there are many methods for generating pseudo-random numbers,
+the LFSR is chosen here because it can be done efficiently with the 6502 CPU.
+When iterated once per bit of output, a maximal-length LFSR is a very
+suitable general purpose pseudo-random number generators, with a number of
+good properties, like well behaved distribution.
+They are not
+[cryptographically secure](http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator),
+of course, but this is not normally an important requirement for this platform.
 
 ## Notes
 
