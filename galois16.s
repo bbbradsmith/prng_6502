@@ -57,8 +57,8 @@ galois16u:
 	rts
 
 ; overlapped version, computes all 8 iterations in an overlapping fashion
-; 78 cycles
-; 41 bytes
+; 76 cycles
+; 40 bytes
 
 galois16o:
 	; shift everything 1 byte left

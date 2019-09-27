@@ -5,7 +5,15 @@
 ;
 
 ; A 24-bit Galois LFSR
-; $1B is the lowest feedback value that generates a full 16777215 step sequence
+
+; Possible feedback values that generates a full 16777215 step sequence:
+; $1B = %00011011
+; $87 = %10000111
+; $B1 = %10110001
+; $DB = %11011011
+; $F5 = %11110101
+
+; $1B is chosen
 
 .importzp seed
 

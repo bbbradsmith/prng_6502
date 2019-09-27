@@ -85,25 +85,23 @@ int main()
 {
 	printf("Equivalence tests.\n");
 	MATCH_TEST(galois16,galois16u,65535);
-	MATCH_TEST(galois16,galois16o,65535);
+	MATCH_TEST(galois16u,galois16o,65535);
 	MATCH_TEST(galois24,galois24u,16777215);
-	MATCH_TEST(galois24,galois24o,16777215);
+	MATCH_TEST(galois24u,galois24o,16777215);
 	MATCH_TEST(galois32,galois32u,17000000);
-	MATCH_TEST(galois32,galois32o,17000000);
+	MATCH_TEST(galois32u,galois32o,17000000);
+	//MATCH_TEST(galois32,galois32u,4294967295);
 	MATCH_TEST(galois32,galois32o,4294967295);
 
 	printf("Cycle tests.\n");
-	CYCLE_TEST(galois16,65534);
-	CYCLE_TEST(galois24,16777214);
-	CYCLE_TEST(galois32,4294967294);
-	//CYCLE_TEST(galois16u,65534);
-	//CYCLE_TEST(galois16o,65534);
-
+	CYCLE_TEST(galois16o,65534);
+	CYCLE_TEST(galois24o,16777214);
+	CYCLE_TEST(galois32o,4294967294);
 
 	printf("Distribution tests.\n");
-	DISTRIBUTION_TEST(galois16,65535);
-	DISTRIBUTION_TEST(galois24,16777215);
-	DISTRIBUTION_TEST(galois32,4294967295);
+	DISTRIBUTION_TEST(galois16o,65535);
+	DISTRIBUTION_TEST(galois24o,16777215);
+	DISTRIBUTION_TEST(galois32o,4294967295);
 
 	printf("Complete.\n");
 	return 0;

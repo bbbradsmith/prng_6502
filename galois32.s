@@ -5,9 +5,13 @@
 ;
 
 ; A 32-bit Galois LFSR
-; $AF would be the lowest feedback value that generates a full 4294967295 step sequence,
-; but $C5 is used instead because it has fewer bits set (4 is the minimum),
-; and has "nicer" behaviour when the RNG is iterated less than the ideal 8 bits.
+
+; Possible feedback values that generates a full 65535 step sequence:
+; $AF = %10101111
+; $C5 = %11000101
+; $F5 = %11110101
+
+; $C5 is chosen
 
 .importzp seed
 
