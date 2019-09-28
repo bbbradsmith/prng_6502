@@ -80,7 +80,7 @@ partly because there is really only one viable 32-bit polynomial.
 The simple versions can be adapted to take **Y** as a parameter, rather than
 always generating 8 bits. If a lower number of bits is needed
 (e.g. a 50/50 choice only needs 1 bit), this can be used for a faster
-result, breaking even with the overlapped version around 4 or 5 bits.
+result, breaking even with the overlapped version at around 4 bits.
 
 Though there are generally many XOR-feedback values that can generate a maximal
 length LFSR, the ones selected here were chosen to have as few bits as necessary,
@@ -93,6 +93,18 @@ and in a compact arrangement that makes the computation faster.
 * **utils/polyfind.cpp** - A simple program to search for viable XOR-feedback values.
 * **utils/spectral.py** - A 2D spectral test for diagnosting RNG result correlation problems.
 * **test.c**/**.cfg**/**.bat** - A CC65 unit test for verifying the correctness of this program.
+
+## Other RNG methods
+
+| Function    | Width  | Code Size | Cycles        |
+| ----------- | ------ | --------- | ------------- |
+| xorshift798 | 16-bit | 29 bytes  | 55            |
+
+A
+[16-bit xorshift](http://www.retroprogramming.com/2017/07/xorshift-pseudorandom-numbers-in-z80.html)
+(7,9,8) implementation is included for comparison.
+It is slightly faster and smaller than **galois16o**,
+but has noticeably poorer random quality, and not recommended for general use.
 
 ## License
 
