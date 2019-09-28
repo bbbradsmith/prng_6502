@@ -17,7 +17,7 @@ for the sake of comparison.
 The
 [16-bit xorshift](http://www.retroprogramming.com/2017/07/xorshift-pseudorandom-numbers-in-z80.html)
 (7,9,8) is slightly faster and smaller than **galois16o**,
-but has noticeably poorer random quality. (The spectral test raises an immediate red flag.)
+but has noticeably poorer random quality. The spectral test raises an immediate red flag.
 
 CC65 has an
 [LCG](http://en.wikipedia.org/wiki/Linear_congruential_generator)
