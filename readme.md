@@ -97,8 +97,7 @@ and in a compact arrangement that makes the computation faster.
 * **galois32.s** - 32-bit RNG implementations.
 * **common.s** - Shared state storage and variables.
 * **other/** - Alternative RNG methods.
-* **utils/polyfind.cpp** - A simple program to search for viable XOR-feedback values.
-* **utils/spectral.py** - A 2D spectral test for diagnosting RNG result correlation problems.
+* **utils/** - Some small utility programs for investigating RNGs.
 * **test.c**/**.cfg**/**.bat** - A CC65 unit test for verifying the correctness of this program.
 
 ## License
