@@ -2,3 +2,6 @@ cc65/
 output/
 utils/polyfind.exe
 utils/*.png
+utils/RNG*.exe
+utils/cmd.exe.lnk
+utils/*.rnd
