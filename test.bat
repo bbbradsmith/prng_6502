@@ -14,7 +14,7 @@ cc65\bin\ca65 -o output\galois24.o -g galois24.s
 cc65\bin\ca65 -o output\galois32.o -g galois32.s
 @IF ERRORLEVEL 1 GOTO error
 
-cc65\bin\ca65 -o output\xorshift.o -g xorshift.s
+cc65\bin\ca65 -o output\xorshift.o -g other\xorshift.s
 @IF ERRORLEVEL 1 GOTO error
 
 cc65\bin\cc65 -o output\test.c.s -T -O -g test.c

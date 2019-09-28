@@ -62,11 +62,15 @@ but these are all larger and slower than their overlapped counterparts.
 Though there are many methods for generating pseudo-random numbers,
 the LFSR is chosen here because it can be done efficiently with the 6502 CPU.
 When iterated once per bit of output, a maximal-length LFSR is a very
-suitable general purpose pseudo-random number generators, with a number of
-good properties, like well behaved distribution.
-They are not
+suitable general purpose pseudo-random number generator, with a number of
+desirable properties.
+
+These LFSRs are _not_
 [cryptographically secure](http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator),
-of course, but this is not normally an important requirement for this platform.
+but this is normally an irrelevant requirement for the platform.
+Rigorous random number test suites such as
+[PractRand](http://pracrand.sourceforge.net/)
+will score them poorly on some tests because of this.
 
 ## Notes
 
@@ -90,29 +94,16 @@ and in a compact arrangement that makes the computation faster.
 * **galois24.s** - 24-bit RNG implementations.
 * **galois32.s** - 32-bit RNG implementations.
 * **common.s** - Shared state storage and variables.
+* **other/** - Alternative RNG methods.
 * **utils/polyfind.cpp** - A simple program to search for viable XOR-feedback values.
 * **utils/spectral.py** - A 2D spectral test for diagnosting RNG result correlation problems.
 * **test.c**/**.cfg**/**.bat** - A CC65 unit test for verifying the correctness of this program.
-
-## Other RNG methods
-
-| Function    | Width  | Code Size | Cycles        |
-| ----------- | ------ | --------- | ------------- |
-| xorshift798 | 16-bit | 29 bytes  | 55            |
-
-A
-[16-bit xorshift](http://www.retroprogramming.com/2017/07/xorshift-pseudorandom-numbers-in-z80.html)
-(7,9,8) implementation is included for comparison.
-It is slightly faster and smaller than **galois16o**,
-but has noticeably poorer random quality, and not recommended for general use.
 
 ## License
 
 This code and may be used, reused, and modified for any purpose, commercial or non-commercial.
 
 Attribution in released binaries or documentation is appreciated but not required.
-
-If redistributing a modified version of this source code, please correctly attribute both the original author and the work of the modifying author.
 
 If you'd like to support this project or its author, please visit:
  [Patreon](https://www.patreon.com/rainwarrior)
