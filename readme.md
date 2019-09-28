@@ -80,7 +80,7 @@ partly because there is really only one viable 32-bit polynomial.
 The simple versions can be adapted to take **Y** as a parameter, rather than
 always generating 8 bits. If a lower number of bits is needed
 (e.g. a 50/50 choice only needs 1 bit), this can be used for a faster
-result.
+result, breaking even with the overlapped version around 4 or 5 bits.
 
 Though there are generally many XOR-feedback values that can generate a maximal
 length LFSR, the ones selected here were chosen to have as few bits as necessary,
