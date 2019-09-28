@@ -69,8 +69,10 @@ These LFSRs are _not_
 [cryptographically secure](http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator),
 but this is normally an irrelevant requirement for the platform.
 Rigorous random number test suites such as
+[TestU01](http://simul.iro.umontreal.ca/testu01/tu01.html)
+or
 [PractRand](http://pracrand.sourceforge.net/)
-will score them poorly on some tests because of this.
+may score them poorly on some tests because of this.
 
 ## Notes
 
