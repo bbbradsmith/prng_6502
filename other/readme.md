@@ -32,10 +32,9 @@ CC65 has an
 [LCG](http://en.wikipedia.org/wiki/Linear_congruential_generator)
 RNG technique for its
 [rand()](https://github.com/cc65/cc65/blob/master/libsrc/common/rand.s)
-library function. The quality of its output is good;
-in my estimation it falls somewhere between **galois24o** and **galois32o**.
-Unlike LFSR style RNGs, a seed of 0 is acceptable,
-and its overall period is 1 step longer.
+library function. The quality of its output is good:
+in my estimation it falls roughly halfway between **galois24o** and **galois32o**.
+Unlike LFSR style RNGs, a seed of 0 is acceptable, and its overall period is 1 step longer.
 
 ## License
 
