@@ -16,15 +16,15 @@ def lfsr(seed,eor,MASK,HIGH,iters=8):
             seed = (seed << 1) & MASK
     return seed
 
-def spectral(name, eor, bits, count, dim=256):
+def spectral_lfsr(name, eor, bits, iters, count, dim=256):
     img = PIL.Image.new("1",(dim,dim),1)
     seed = 1
     MASK = (1<<bits)-1
     HIGH = 1<<(bits-1)
     for i in range(count):
-        seed = lfsr(seed,eor,MASK,HIGH)
+        seed = lfsr(seed,eor,MASK,HIGH,iters)
         x = seed % dim
-        seed = lfsr(seed,eor,MASK,HIGH)
+        seed = lfsr(seed,eor,MASK,HIGH,iters)
         y = seed % dim
         img.putpixel((x,y),0)
     img.save(name+".png")
@@ -49,7 +49,39 @@ def spectral_xorshift(name, t, shift, bits, count, dim=256):
     img.save(name+".png")
     print("%s x %d" % (name,count))
 
-spectral("galois16",0x39,16,20000)
-spectral("galois24",0x1B,24,20000)
-spectral("galois32",0xC5,32,20000)
+def lcg(seed,m,a,MASK):
+    seed = ((seed + m) * a) & MASK
+    return seed
+
+def spectral_lcg(name, m, a, shift, bits, count, dim=256):
+    img = PIL.Image.new("1",(dim,dim),1)
+    seed = 1
+    MASK = (1<<bits)-1
+    for i in range(count):
+        seed = lcg(seed,m,a,MASK)
+        x = (seed >> shift) % dim
+        seed = lcg(seed,m,a,MASK)
+        y = (seed >> shift) % dim
+        img.putpixel((x,y),0)
+    img.save(name+".png")
+    print("%s x %d" % (name,count))
+
+spectral_lfsr("galois16",0x39,16,8,20000)
+spectral_lfsr("galois24",0x1B,24,8,20000)
+spectral_lfsr("galois32",0xC5,32,8,20000)
 spectral_xorshift("xorshift798",(7,9,8),8,16,20000)
+spectral_lcg("cc65rand",0x01010101,0x31415927,24,32,20000)
+
+spectral_lfsr("galois16_full",0x39,16,8,65535) # a full cycle produces every possible pair except 1
+spectral_lfsr("galois16_1",0x39,16,1,20000)
+spectral_lfsr("galois16_2",0x39,16,2,20000)
+spectral_lfsr("galois16_3",0x39,16,3,20000)
+spectral_lfsr("galois16_4",0x39,16,4,20000)
+spectral_lfsr("galois16_5",0x39,16,5,20000)
+spectral_lfsr("galois16_6",0x39,16,6,20000)
+spectral_lfsr("galois16_7",0x39,16,7,20000)
+spectral_lfsr("galois16_8",0x39,16,8,20000)
+spectral_lcg("cc65rand_0",0x01010101,0x31415927,0,32,20000)
+spectral_lcg("cc65rand_1",0x01010101,0x31415927,8,32,20000)
+spectral_lcg("cc65rand_2",0x01010101,0x31415927,16,32,20000)
+spectral_lcg("cc65rand_3",0x01010101,0x31415927,24,32,20000)
