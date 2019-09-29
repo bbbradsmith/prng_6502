@@ -37,6 +37,8 @@ extern uint8 s;
 #pragma zpsym("r");
 #pragma zpsym("s");
 
+// primary RNGs
+
 extern uint8 fastcall galois16(void);
 extern uint8 fastcall galois16u(void);
 extern uint8 fastcall galois16o(void);
@@ -49,6 +51,11 @@ extern uint8 fastcall galois32(void);
 extern uint8 fastcall galois32u(void);
 extern uint8 fastcall galois32o(void);
 
+// other RNGs
+
+extern uint8 fastcall galois8(void);
+extern uint8 fastcall galois8u(void);
+extern uint8 fastcall galois8o(void);
 extern uint8 fastcall xorshift798(void);
 
 uint32 counter[256];
@@ -108,27 +115,31 @@ int tests()
 	printf("Equivalence tests:\n");
 	MATCH_TEST(galois16 ,galois16u,65535); // verify that unrolled matches simple
 	MATCH_TEST(galois16u,galois16o,65535); // verify that overlapped matches unrolled
-	MATCH_TEST(xorshift798c,xorshift798,65535);
 	MATCH_TEST(galois24 ,galois24u,16777215);
 	MATCH_TEST(galois24u,galois24o,16777215);
 	MATCH_TEST(galois32 ,galois32u,17000000); // an incomplete cycle, but still a pretty good verification
 	MATCH_TEST(galois32u,galois32o,17000000);
 	//MATCH_TEST(galois32 ,galois32u,4294967295); // these take several hours to complete
 	//MATCH_TEST(galois32 ,galois32o,4294967295);
+	MATCH_TEST(galois8,galois8u,255);
+	MATCH_TEST(galois8u,galois8o,255);
+	MATCH_TEST(xorshift798c,xorshift798,65535);
 
 	printf("Cycle tests:\n");
 	CYCLE_TEST(galois16o,65534);
-	CYCLE_TEST(xorshift798,65534);
 	CYCLE_TEST(galois24o,16777214);
 	//CYCLE_TEST(galois32o,4294967294); // several hours
+	CYCLE_TEST(galois8u,254);
+	CYCLE_TEST(xorshift798,65534);
 
 	// maximal cycle automatically ensures even distribution,
 	// but these will demonstrate uniformity with shorter cycles.
 	printf("Distribution tests:\n");
 	DISTRIBUTION_TEST(galois16o,25600);
-	DISTRIBUTION_TEST(xorshift798,25600);
 	DISTRIBUTION_TEST(galois24o,2560000);
 	DISTRIBUTION_TEST(galois32o,2560000);
+	DISTRIBUTION_TEST(galois8u,128);
+	DISTRIBUTION_TEST(xorshift798,25600);
 
 	return 0; // success
 }

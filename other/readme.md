@@ -11,8 +11,17 @@ for the sake of comparison.
 
 | Function    | Width  | Code Size | Cycles        |
 | ----------- | ------ | --------- | ------------- |
+| galois8     | 8-bit  | 17 bytes  | 93-101 (97)   |
+| galois8u    | 8-bit  | 47 bytes  | 52-60 (56)    |
+| galois8o    | 8-bit  | 53 bytes  | 98            |
 | xorshift798 | 16-bit | 29 bytes  | 55            |
 | [CC65 rand()](https://github.com/cc65/cc65/blob/master/libsrc/common/rand.s) | 32-bit | 44 bytes | 73 |
+
+The **galois8** RNGs are an 8-bit version of the Galois LFSR.
+The sequence is only 255 steps long, and the quality of the output is very poor.
+At this width the overlapped methods become inefficient, and unrolling is faster.
+If reduced to fewer iterations, it might be acceptable for generating numbers of
+1, 2, or 4 bits in a desperately minimal situation, but the 8-bit result is terrible.
 
 The
 [16-bit xorshift](http://www.retroprogramming.com/2017/07/xorshift-pseudorandom-numbers-in-z80.html)

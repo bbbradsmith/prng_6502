@@ -66,6 +66,7 @@ def spectral_lcg(name, m, a, shift, bits, count, dim=256):
     img.save(name+".png")
     print("%s x %d" % (name,count))
 
+spectral_lfsr("galois8",0x1D,8,1,20000)
 spectral_lfsr("galois16",0x39,16,8,20000)
 spectral_lfsr("galois24",0x1B,24,8,20000)
 spectral_lfsr("galois32",0xC5,32,8,20000)
