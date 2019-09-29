@@ -6,7 +6,7 @@
 
 ; A 16-bit Galois LFSR
 
-; Possible feedback values that generates a full 65535 step sequence:
+; Possible feedback values that generate a full 65535 step sequence:
 ; $2D = %00101101
 ; $39 = %00111001
 ; $3F = %00111111

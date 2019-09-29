@@ -6,7 +6,7 @@
 
 ; A 24-bit Galois LFSR
 
-; Possible feedback values that generates a full 16777215 step sequence:
+; Possible feedback values that generate a full 16777215 step sequence:
 ; $1B = %00011011
 ; $87 = %10000111
 ; $B1 = %10110001
