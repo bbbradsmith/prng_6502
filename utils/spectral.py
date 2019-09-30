@@ -82,7 +82,7 @@ spectral_lfsr("galois16_5",0x39,16,5,20000)
 spectral_lfsr("galois16_6",0x39,16,6,20000)
 spectral_lfsr("galois16_7",0x39,16,7,20000)
 spectral_lfsr("galois16_8",0x39,16,8,20000)
-spectral_lcg("cc65rand_0",0x01010101,0x31415927,0,32,20000)
+spectral_lcg("cc65rand_0",0x01010101,0x31415927,0,32,20000) # lower bits of seed have lower entropy
 spectral_lcg("cc65rand_1",0x01010101,0x31415927,8,32,20000)
 spectral_lcg("cc65rand_2",0x01010101,0x31415927,16,32,20000)
 spectral_lcg("cc65rand_3",0x01010101,0x31415927,24,32,20000)
