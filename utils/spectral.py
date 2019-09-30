@@ -74,7 +74,7 @@ spectral_xorshift("xorshift798",(7,9,8),8,16,20000)
 spectral_lcg("cc65rand",0x01010101,0x31415927,24,32,20000)
 
 spectral_lfsr("galois16_full",0x39,16,8,65535) # a full cycle produces every possible pair except 1
-spectral_lfsr("galois16_1",0x39,16,1,20000)
+spectral_lfsr("galois16_1",0x39,16,1,20000) # testing with fewer iterations
 spectral_lfsr("galois16_2",0x39,16,2,20000)
 spectral_lfsr("galois16_3",0x39,16,3,20000)
 spectral_lfsr("galois16_4",0x39,16,4,20000)

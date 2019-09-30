@@ -72,43 +72,25 @@ galois8o:
 	; broken into two 4-step overlapped iterations
 	; seed = (seed << 4) ^ ((seed >> 4) * %11101)
 	lda seed+0
-	tay
-	and #$F0
-	sta seed+0
-	lsr
-	lsr
-	eor seed+0
-	lsr
-	eor seed+0
-	lsr
-	eor seed+0
-	sta seed+0
-	tya
-	asl
-	asl
-	asl
-	asl
-	eor seed+0
-	;sta seed+0
-	; second iteration
-	;lda seed+0
-	tay
-	and #$F0
-	sta seed+0
-	lsr
-	lsr
-	eor seed+0
-	lsr
-	eor seed+0
-	lsr
-	eor seed+0
-	sta seed+0
-	tya
-	asl
-	asl
-	asl
-	asl
-	eor seed+0
+	.repeat 2
+		tay
+		and #$F0
+		sta seed+0
+		lsr
+		lsr
+		eor seed+0
+		lsr
+		eor seed+0
+		lsr
+		eor seed+0
+		sta seed+0
+		tya
+		asl
+		asl
+		asl
+		asl
+		eor seed+0
+	.endrepeat
 	sta seed+0
 	rts
 
