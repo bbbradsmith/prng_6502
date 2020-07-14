@@ -50,7 +50,7 @@ def spectral_xorshift(name, t, shift, bits, count, dim=256):
     print("%s x %d" % (name,count))
 
 def lcg(seed,m,a,MASK):
-    seed = ((seed + m) * a) & MASK
+    seed = ((seed * m) + a) & MASK
     return seed
 
 def spectral_lcg(name, m, a, shift, bits, count, dim=256):
