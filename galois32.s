@@ -6,7 +6,7 @@
 
 ; A 32-bit Galois LFSR
 
-; Possible feedback values that generate a full 65535 step sequence:
+; Possible feedback values that generate a full 4294967295 step sequence:
 ; $AF = %10101111
 ; $C5 = %11000101
 ; $F5 = %11110101
