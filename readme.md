@@ -24,7 +24,7 @@ it might benefit from the longer 24 or 32-bit sequences.
 ## Usage
 
 Initialize the zero page **seed** variable to any value other than 0.
-The size of **seed** is 2-4 bits, depending on the width of LFSR chosen.
+The size of **seed** is 2-4 bytes, depending on the width of LFSR chosen.
 
 Simply **jsr** to one of the RNG functions.
 An 8-bit result will be returned in the **A** register (with flags),
